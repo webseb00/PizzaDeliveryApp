@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaShoppingCart, FaBars, FaTimes } from 'react-icons/fa'
+import { FaShoppingCart, FaBars, FaTimes, FaPizzaSlice } from 'react-icons/fa'
 
 const Header = () => {
 
@@ -17,24 +17,25 @@ const Header = () => {
         <div className="sm:flex-[1] text-center">
           <Link 
             to="/" 
-            className="text-orange-500 text-4xl heading-font"
+            className="text-orange-500 text-5xl heading-font flex items-center"
           >
             PizzaDelivery
+            <FaPizzaSlice className="text-4xl ml-4" />
           </Link>
         </div>
         <nav className="flex-[3] hidden sm:block">
           <ul className="flex justify-center">
             <li className="mx-4">
-              <a className="hover:text-orange-500" href="/">Home</a>
+              <a className="hover:text-orange-500 transition duration-300" href="/">Home</a>
             </li>
             <li className="mx-4">
-              <a className="hover:text-orange-500" href="/">About Us</a>
+              <a className="hover:text-orange-500 transition duration-300" href="#about-us">About Us</a>
             </li>
             <li className="mx-4">
-              <a className="hover:text-orange-500" href="/">Products</a>
+              <a className="hover:text-orange-500 transition duration-300" href="/">Products</a>
             </li>
             <li className="mx-4">
-              <a className="hover:text-orange-500" href="/">Contact</a>
+              <a className="hover:text-orange-500 transition duration-300" href="/">Contact</a>
             </li>
           </ul>
         </nav>
@@ -62,16 +63,16 @@ const Header = () => {
     absolute left-0 ${!isOpen ? 'translate-y-[-100%]' : 'translate-y-0'} right-0 z-10`}>
       <ul className="flex flex-col justify-center items-center">
         <li className="w-full text-center">
-          <a className="hover:text-orange-500 block py-3 text-xl" href="/">Home</a>
+          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="/">Home</a>
         </li>
         <li className="w-full text-center">
-          <a className="hover:text-orange-500 block py-3 text-xl" href="/">About Us</a>
+          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="#about-us">About Us</a>
         </li>
         <li className="w-full text-center">
-          <a className="hover:text-orange-500 block py-3 text-xl" href="/">Products</a>
+          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="/">Products</a>
         </li>
         <li className="w-full text-center">
-          <a className="hover:text-orange-500 block py-3 text-xl" href="/">Contact</a>
+          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="/">Contact</a>
         </li>
         <li className="w-full text-center">
           <Link to="/cart" className="hover:opacity-70 block py-3">

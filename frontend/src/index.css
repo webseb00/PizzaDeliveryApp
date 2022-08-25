@@ -7,3 +7,15 @@
 .heading-font {
   font-family: 'Great Vibes', cursive;
 }
+
+.hero-bg {
+  background-image: linear-gradient(rgba(30, 41, 59,.7), rgba(30, 41, 59,.7)), url('./assets/background-hero.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+body {
+  scroll-behavior: smooth;
+}

@@ -1,10 +1,13 @@
 import React from 'react'
+import Hero from '../components/Hero'
+import AboutUs from '../components/AboutUs'
 
 const Main = () => {
   return (
-    <div>
-      Main
-    </div>
+    <>
+      <Hero />
+      <AboutUs />
+    </>
   )
 }
 
