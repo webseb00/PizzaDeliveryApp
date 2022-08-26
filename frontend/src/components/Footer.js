@@ -4,7 +4,7 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 
 const Footer = () => {
   return (
-    <footer className="border-t-[2px] border-slate-800">
+    <footer id="contact" className="border-t-[2px] border-slate-800">
       <div className="bg-orange-500 ">
         <div className="container mx-auto px-6 pt-10 pb-[6rem] flex flex-col items-center md:items-start md:flex-row justify-center">
           <div className="basis-3/4 md:basis-1/3 mx-4">

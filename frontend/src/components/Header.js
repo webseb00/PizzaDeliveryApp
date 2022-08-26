@@ -32,10 +32,10 @@ const Header = () => {
               <a className="hover:text-orange-500 transition duration-300" href="#about-us">About Us</a>
             </li>
             <li className="mx-4">
-              <a className="hover:text-orange-500 transition duration-300" href="/">Products</a>
+              <a className="hover:text-orange-500 transition duration-300" href="#products">Products</a>
             </li>
             <li className="mx-4">
-              <a className="hover:text-orange-500 transition duration-300" href="/">Contact</a>
+              <a className="hover:text-orange-500 transition duration-300" href="#contact">Contact</a>
             </li>
           </ul>
         </nav>
@@ -69,10 +69,10 @@ const Header = () => {
           <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="#about-us">About Us</a>
         </li>
         <li className="w-full text-center">
-          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="/">Products</a>
+          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="#products">Products</a>
         </li>
         <li className="w-full text-center">
-          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="/">Contact</a>
+          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="#contact">Contact</a>
         </li>
         <li className="w-full text-center">
           <Link to="/cart" className="hover:opacity-70 block py-3">

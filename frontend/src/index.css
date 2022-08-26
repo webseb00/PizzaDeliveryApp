@@ -4,6 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
+body {
+  scroll-behavior: smooth;
+}
+
 .heading-font {
   font-family: 'Great Vibes', cursive;
 }
@@ -16,6 +20,10 @@
   background-attachment: fixed;
 }
 
-body {
-  scroll-behavior: smooth;
+.intro-bg {
+  background-image: linear-gradient(rgba(30, 41, 59,.9), rgba(30, 41, 59,.9)), url('./assets/background-intro.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
