@@ -1,8 +1,9 @@
 import React from 'react'
 
-const Button = ({ text }) => {
+const Button = ({ text, handler = null }) => {
   return (
     <button
+      onClick={handler}
       type="button"
       className="py-3 px-6 bg-orange-500 text-white border-none
       outline-none uppercase font-semibold transition duration-300 hover:bg-orange-400

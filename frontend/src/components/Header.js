@@ -26,7 +26,7 @@ const Header = () => {
         <nav className="flex-[3] hidden sm:block">
           <ul className="flex justify-center">
             <li className="mx-4">
-              <a className="hover:text-orange-500 transition duration-300" href="/">Home</a>
+              <Link className="hover:text-orange-500 transition duration-300" to="/">Home</Link>
             </li>
             <li className="mx-4">
               <a className="hover:text-orange-500 transition duration-300" href="#about-us">About Us</a>
@@ -63,7 +63,7 @@ const Header = () => {
     absolute left-0 ${!isOpen ? 'translate-y-[-100%]' : 'translate-y-0'} right-0 z-10`}>
       <ul className="flex flex-col justify-center items-center">
         <li className="w-full text-center">
-          <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="/">Home</a>
+          <Link className="hover:text-orange-500 transition duration-300 block py-3 text-xl" to="/">Home</Link>
         </li>
         <li className="w-full text-center">
           <a className="hover:text-orange-500 transition duration-300 block py-3 text-xl" href="#about-us">About Us</a>
