@@ -3,6 +3,7 @@ import productsService from './productsService'
 
 const initialState = {
   products: [],
+  product: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -17,13 +18,18 @@ export const getAllProducts = createAsyncThunk('products/getAll', async (_, { re
   }
 })
 
+export const getProduct = createAsyncThunk('products/getProduct', async (id, { rejectWithValue }) => {
+  try {
+    return await productsService.getProduct(id);
+  } catch(err) {
+    return rejectWithValue(err.message)
+  }
+})
+
 export const productsSlice = createSlice({ 
   name: 'products',
   initialState,
   reducers: {
-    getProduct: (state, action) => {
-      return state.products.find(product => product.id === action.payload)
-    },
     reset: (state) => initialState
   },
   extraReducers: (builder) => {
@@ -37,6 +43,19 @@ export const productsSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(getAllProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getProduct.pending, (state, action) => {
+        state.isLoading = true
+      })
+      .addCase(getProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.product = action.payload;
+      })
+      .addCase(getProduct.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

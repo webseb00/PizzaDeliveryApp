@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon server/index.js"
+    "watch:server": "nodemon server/index.js",
+    "watch:client": "yarn --cwd frontend start",
+    "dev": "concurrently yarn:watch*"
   },
   "devDependencies": {
     "concurrently": "^7.3.0",

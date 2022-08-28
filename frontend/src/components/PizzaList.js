@@ -12,7 +12,7 @@ const PizzaList = () => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, [isError, isSuccess])
+  }, [])
 
   return (
     <section id="products" className="pt-[3rem] pb-[6rem]">
@@ -24,7 +24,7 @@ const PizzaList = () => {
           {isLoading ? 
             <Spinner /> 
             :
-            products.length ? 
+            products?.length ? 
             products.map(product => (
               <PizzaItem key={product._id} { ...product } />
             )) : 
