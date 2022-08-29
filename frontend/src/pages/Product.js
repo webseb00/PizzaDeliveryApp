@@ -15,23 +15,23 @@ const Product = () => {
   const { product, isLoading } = useSelector(state => state.products)
 
   const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(product.price[0]);
   const [size, setSize] = useState('small')
 
-  const handleQuantity = e => setQuantity(e.target.value)
+  const handleQuantity = e => setQuantity((Number(e.target.value)))
 
   const handleSize = e => {
     const value = e.target.value;
 
     if(value === 'large') {
       setSize(value)
-      setPrice(product.price[3])
+      setPrice(product.price[2])
     } else if(value === 'medium') {
       setSize(value)
-      setPrice(product.price[2])
+      setPrice(product.price[1])
     } else {
       setSize(value)
-      setPrice(product.price[1])
+      setPrice(product.price[0])
     }
   }
 
@@ -56,7 +56,7 @@ const Product = () => {
       <div className="basis-10/12 md:basis-5/12">
         <div className="text-center md:text-left">
           <h2 className="heading-font font-semibold text-6xl text-slate-800">{product?.title}</h2>
-          <p className="my-[2rem] text-2xl font-semibold text-orange-500">$ {price || product.price?.[0].toFixed(2)}</p>
+          <p className="my-[2rem] text-3xl font-semibold text-orange-500">$ {price.toFixed(2)}</p>
           <p className="text-slate-500 text-justify leading-5">{product?.description}</p>
         </div>
         <hr className="my-[1rem]" />
@@ -64,7 +64,7 @@ const Product = () => {
           <h4 className="text-slate-800 font-semibold text-lg">Ingredients:</h4>
           <ul className="list-disc list-inside">
             {product?.ingredients ? 
-            product?.ingredients[0].split(',').map((item, idx) => (
+            product?.ingredients.map((item, idx) => (
               <li key={idx}>{item}</li>
             ))
             : 'No ingredients found'}
