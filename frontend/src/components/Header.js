@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaShoppingCart, FaBars, FaTimes, FaPizzaSlice } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const { items } = useSelector(state => state.cart);
 
   const handleMobileMenu = () => {
     setIsOpen((prev) => !prev);
@@ -12,7 +15,7 @@ const Header = () => {
 
   return (
     <>
-    <header className="bg-slate-800 py-6 relative border-b border-gray-300 z-20">
+    <header className="bg-slate-800 py-6 relative border-b border-gray-300 z-20 shadow-md">
       <div className="flex justify-around sm:justify-center items-center text-white max-w-[1200px] w-full mx-auto px-4">
         <div className="sm:flex-[1] text-center">
           <Link 
@@ -44,7 +47,7 @@ const Header = () => {
             <span className="inline-block relative">
               <FaShoppingCart className="text-2xl" />
               <div className="absolute top-[-10px] right-[-10px] bg-white text-slate-800 rounded-full w-[20px] h-[20px] 
-              font-semibold text-lg align-middle flex items-center justify-center">0</div>
+              font-semibold text-lg align-middle flex items-center justify-center">{items}</div>
             </span>
           </Link>
         </div>

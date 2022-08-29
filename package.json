@@ -18,7 +18,8 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.5.2",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "redux-persist": "^6.0.0"
   },
   "author": "webseb00 <lordow91@gmail.com>"
 }

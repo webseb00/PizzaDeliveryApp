@@ -8,7 +8,7 @@ import { TbPizzaOff } from 'react-icons/tb'
 const PizzaList = () => {
 
   const dispatch = useDispatch();
-  const { products, isError, isSuccess, isLoading } = useSelector((state) => state.products);
+  const { products, isLoading } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getAllProducts());

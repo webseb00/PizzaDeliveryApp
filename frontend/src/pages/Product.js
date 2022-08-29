@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom'
 import { getProduct } from '../features/products/productsSlice';
+import { addToCart, calculateTotals } from '../features/cart/cartSlice';
 import { FaHandPointRight } from 'react-icons/fa';
 import Button from '../components/Button';
 import Spinner from '../components/Spinner';
@@ -15,7 +16,7 @@ const Product = () => {
   const { product, isLoading } = useSelector(state => state.products)
 
   const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(product.price[0]);
+  const [price, setPrice] = useState('');
   const [size, setSize] = useState('small')
 
   const handleQuantity = e => setQuantity((Number(e.target.value)))
@@ -25,18 +26,32 @@ const Product = () => {
 
     if(value === 'large') {
       setSize(value)
-      setPrice(product.price[2])
+      setPrice(product.price[2].toFixed(2))
     } else if(value === 'medium') {
       setSize(value)
-      setPrice(product.price[1])
+      setPrice(product.price[1].toFixed(2))
     } else {
       setSize(value)
-      setPrice(product.price[0])
+      setPrice(product.price[0].toFixed(2))
     }
   }
 
   const handleAddToCart = () => {
     if(size === 'size') return;
+    
+    const total = (price*quantity).toFixed(2)
+
+    const item = {
+      id: product._id,
+      price,
+      quantity,
+      total,
+      name: product.title,
+      img: product.img
+    }
+
+    dispatch(addToCart(item))
+    dispatch(calculateTotals())
     
     navigate('/cart')
   }
@@ -45,6 +60,12 @@ const Product = () => {
     dispatch(getProduct(params.id))
   }, []);
 
+  useEffect(() => {
+    if(product.price && product.price[0]) {
+      setPrice(product.price[0].toFixed(2))
+    }
+  }, [product])
+
   if(isLoading) return (
     <div className="h-[80vh] flex justify-center items-center">
       <Spinner />
@@ -52,11 +73,11 @@ const Product = () => {
   )
 
   return (
-    <div className="container mx-auto px-6 py-[6rem] flex flex-col-reverse md:flex-row items-center justify-evenly">
-      <div className="basis-10/12 md:basis-5/12">
-        <div className="text-center md:text-left">
+    <div className="container mx-auto px-6 py-[8rem] flex flex-col-reverse lg:flex-row items-center justify-evenly">
+      <div className="basis-10/12 lg:basis-5/12">
+        <div className="text-center lg:text-left">
           <h2 className="heading-font font-semibold text-6xl text-slate-800">{product?.title}</h2>
-          <p className="my-[2rem] text-3xl font-semibold text-orange-500">$ {price.toFixed(2)}</p>
+          <p className="my-[2rem] text-3xl font-semibold text-orange-500">$ {price}</p>
           <p className="text-slate-500 text-justify leading-5">{product?.description}</p>
         </div>
         <hr className="my-[1rem]" />
@@ -98,7 +119,7 @@ const Product = () => {
           />
         </div>
       </div>
-      <div className="mb-[2rem] basis-10/12 md:basis-5/12 md:mb-[2rem]">
+      <div className="mb-[2rem] basis-10/12 lg:basis-5/12 lg:mb-[2rem]">
         <img src={product?.img} alt="Pizza" className="mx-auto max-w-[320px] rounded-md shadow-lg" />
       </div>
     </div>
