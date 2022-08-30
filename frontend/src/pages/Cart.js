@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TbPizzaOff } from 'react-icons/tb'
 import { useSelector } from 'react-redux'
-
+import ModalDelivery from '../components/ModalDelivery'
 import CartItem from '../components/CartItem'
 
 const Cart = () => {
 
+  const [checkout, setCheckout] = useState(false);
+  const [modalDelivery, setModalDelivery] = useState(false);
   const { cart, total } = useSelector((state) => state.cart);
+
+  const handleCheckout = () => setCheckout(true);
 
   return (
     <div className="container mx-auto px-6 py-[6rem]">
       {cart && cart.length ?
-      <div className="flex flex-col lg:flex-row min-w-[430px]">
+      <div className="flex flex-col lg:flex-row min-w-[430px] lg:items-start">
         <div className="flex-1 lg:flex-[3] mb-[3rem] lg:mr-[3rem]">
           <table className="table-fixed w-full text-sm text-center text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -43,13 +47,35 @@ const Cart = () => {
               <span className="font-semibold">Total:</span> {total.toFixed(2)}$
             </li>
           </ul>     
-          <button 
-            type="button"
-            className="block bg-orange-500 uppercase font-semibold border-none
-            outline-none w-full py-2 transition duration-300 hover:opacity-70"
-          >
-            Checkout Now!  
-          </button>  
+          {!checkout ? 
+            <button 
+              type="button"
+              className="block bg-orange-500 uppercase font-semibold border-none
+              outline-none w-full py-2 transition duration-300 hover:opacity-70"
+              onClick={handleCheckout}
+            >
+              Checkout Now!  
+            </button>  
+            :
+            <>
+              <button 
+                type="button"
+                className="block bg-slate-200 text-green-600 uppercase font-semibold border-none
+                outline-none w-full py-2 transition duration-300 hover:opacity-70 mb-2"
+                onClick={() => setModalDelivery(true)}
+              >
+                Cash On Delivery 
+              </button>  
+              <button 
+                type="button"
+                className="block bg-yellow-400 text-white uppercase font-semibold border-none
+                outline-none w-full py-2 transition duration-300 hover:opacity-70"
+              >
+                PayPal 
+              </button>  
+            </>
+            
+          }
         </div>
       </div>
       :
@@ -58,6 +84,7 @@ const Cart = () => {
         <TbPizzaOff className="text-8xl mx-auto rotate-[230deg]" />
       </div>
       }
+      {modalDelivery && <ModalDelivery handleModal={setModalDelivery} />}
     </div>
   )
 }
