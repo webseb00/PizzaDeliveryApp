@@ -31,7 +31,10 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-
+  method: {
+    type: Number,
+    required: true
+  }
   },
   { timestamps: true }
 );

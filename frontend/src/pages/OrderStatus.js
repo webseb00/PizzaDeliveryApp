@@ -12,10 +12,10 @@ const OrderStatus = () => {
   const [order, setOrder] = useState(null);
   const [orderStatus, setOrderStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
-
+   
   const fetchOrderData = async () => {
     try {
-      const response = await axios.get(`api/order/${id}`)
+      const response = await axios.get(`/api/order/${id}`)
 
       setOrder(response.data)
     } catch(err) {
@@ -28,8 +28,8 @@ const OrderStatus = () => {
   useEffect(() => {
     if(!id) return;
 
-    // setIsLoading(true);
-    // fetchOrderData(id);
+    setIsLoading(true);
+    fetchOrderData(id);
   }, [])
 
   if(isLoading) return (
@@ -38,44 +38,58 @@ const OrderStatus = () => {
     </div>
   )
 
+  if(!order && !order?._id) return (
+    <div className="h-[80vh] flex justify-center items-center">
+      <h2 className="text-center text-2xl text-slate-700 my-8">Sorry, your order ID was not found.</h2>
+    </div>
+  )
+
   return (
     <div className="container mx-auto px-6 py-[6rem]">
       <div className="flex flex-col lg:flex-row min-w-[430px] lg:items-start">
         <div className="flex-1 lg:flex-[3] mb-[3rem] lg:mr-[3rem]">
-          <table className="table-fixed w-full text-sm text-center text-gray-500 dark:text-gray-400">
+          <table className="table-auto w-full text-sm text-center text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th className="py-3 px-6 text-md">Order ID</th>
-                <th className="py-3 px-6 text-md">Customer</th>
-                <th className="py-3 px-6 text-md">Address</th>
-                <th className="py-3 px-6 text-md">Total</th>
+                <th className="px-2 py-4 text-md">Order ID</th>
+                <th className="px-2 py-4 text-md">Customer</th>
+                <th className="px-2 py-4 text-md">Address</th>
+                <th className="px-2 py-4 text-md">Total</th>
               </tr>
             </thead>
             <tbody>
-              
+              <tr>
+                <td className="px-2 py-4 text-black font-semibold">{order?._id}</td>
+                <td className="px-2 py-4 text-black font-semibold">{order?.firstName} {order?.lastName}</td>
+                <td className="px-2 py-4 text-black font-semibold">{order?.address}</td>
+                <td className="px-2 py-4 text-black font-semibold">{order?.total}</td>
+              </tr>
             </tbody>
           </table>
-          <ul className="flex">
-            <li className="flex flex-col justify-center items-center m-3 text-lg my-6 animate-pulse">
+          <ul className="flex justify-center items-baseline mt-[4rem]">
+            <li className={`flex flex-col justify-center items-center m-3 text-lg my-6 
+            ${orderStatus === 0 ? 'animate-pulse' : ''}`}>
               <FaCashRegister className="" />
               <p className="my-2">Payment</p>
-              <FaCheckCircle  className="text-green-700" />
-              {/* <FaTimesCircle className="text-red-700" /> */}
+              {order.method === 1 ? <FaCheckCircle  className="text-green-700" /> : <FaTimesCircle className="text-red-700" />}
             </li>
-            <li className="flex flex-col justify-center items-center m-3 text-lg opacity-40">
+            <li className={`flex flex-col justify-center items-center m-3 text-lg opacity-40 
+            ${orderStatus === 1 ? 'animate-pulse opacity-100' : ''} ${orderStatus > 1 && 'opacity-100'}`}>
               <GiHotMeal className="" />
               <p className="my-2">Preparing</p>
-              <FaCheckCircle  className="text-green-700" />
+              {orderStatus > 1 && <FaCheckCircle  className="text-green-700" />}
             </li>
-            <li className="flex flex-col justify-center items-center m-3 text-lg opacity-40">
+            <li className={`flex flex-col justify-center items-center m-3 text-lg opacity-40 
+            ${orderStatus === 2 ? 'animate-pulse opacity-100' : ''} ${orderStatus > 2 && 'opacity-100'}`}>
               <FaTruck className="" />
               <p className="my-2">On the way</p>
-              <FaCheckCircle  className="text-green-700" />
+              {orderStatus > 2 && <FaCheckCircle  className="text-green-700" />}
             </li>
-            <li className="flex flex-col justify-center items-center m-3 text-lg opacity-40">
+            <li className={`flex flex-col justify-center items-center m-3 text-lg opacity-40 
+            ${orderStatus === 3 ? 'animate-pulse opacity-100' : ''} ${orderStatus > 3 && 'opacity-100'}`}>
               <BsBagCheck className="" />
               <p className="my-2">Delivered!</p>
-              <FaCheckCircle  className="text-green-700" />
+              {orderStatus > 3 && <FaCheckCircle  className="text-green-700" />}
             </li>
           </ul>
         </div>
@@ -92,8 +106,8 @@ const OrderStatus = () => {
             </li>
           </ul> 
           <div className="block bg-orange-500 uppercase font-semibold border-none
-          outline-none w-full py-2">
-            cash on delivery
+          outline-none w-full py-2 text-center">
+            {order.method ? 'PayPal' : 'Cash On Delivery'}
           </div>
         </div>    
       </div>

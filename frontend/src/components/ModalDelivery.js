@@ -48,6 +48,7 @@ const ModalDelivery = ({ handleModal }) => {
       firstName: fullName.split(' ')[0],
       lastName: fullName.split(' ')[1],
       status: 0,
+      method: 0,
       address,
       total,
     }
