@@ -12,7 +12,14 @@ const getOrders = async (req, res) => {
 
 const addOrder = async (req, res) => {
   try {
-    const order = await Order.create();
+    const { firstName, lastName, address  } = req.body;
+
+    if(!firstName || !lastName || !address) {
+      res.status(400).json({ msg: 'Please fill all fields!' })
+      return;
+    }
+
+    const order = await Order.create(req.body);
 
     res.status(200).json(order);
   } catch(error) {

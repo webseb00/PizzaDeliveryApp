@@ -39,7 +39,7 @@ const Cart = () => {
           <h4 className="uppercase font-semibold text-2xl">cart total</h4>
           <ul className="list-none my-4">
             <li>
-              <span className="font-semibold">Subtotal:</span>
+              <span className="font-semibold">Subtotal:</span> {total.toFixed(2)}$
             </li>
             <li>
               <span className="font-semibold">Discount:</span> 0.00$</li>

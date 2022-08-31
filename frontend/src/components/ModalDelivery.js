@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { FaTimes } from 'react-icons/fa'
+import { BiLoaderAlt } from 'react-icons/bi'
+import axios from 'axios'
 
 const ModalDelivery = ({ handleModal }) => {
 
+  const navigate = useNavigate('/')
   const { total } = useSelector((state) => state.cart)
 
   const [form, setForm] = useState({
@@ -12,21 +16,50 @@ const ModalDelivery = ({ handleModal }) => {
     address: ''
   })
   const [error, setError] = useState({ isSet: false, message: '' })
+  const [isLoading, setIsLoading] = useState(false)
 
   const { fullName, phoneNumber, address } = form;
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = e => {
+  const postNewOrder = async (data) => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post('/api/order', data);
+      return response.data
+    } catch(err) {
+      setError({ isSet: true, message: 'An Error occurred. Order can not be created.' })
+      console.log(err);
+    }
+
+    setIsLoading(false);
+  }
+
+  const handleSubmit = async e => {
     e.preventDefault();
 
-    if(!fullName && !phoneNumber && !address) {
+    if(!fullName && !phoneNumber || phoneNumber.length !== 9 && !address) {
       setError({ isSet: true, message: 'Please fill all fields!' })
       return
     }
 
-    setError({ isSet: false, message: '' });
-    handleCloseModal();
+    const obj = {
+      firstName: fullName.split(' ')[0],
+      lastName: fullName.split(' ')[1],
+      status: 0,
+      address,
+      total,
+    }
+
+    const order = await postNewOrder(obj)
+
+    if(order && order._id) {
+      setError({ isSet: false, message: '' });
+      handleCloseModal();
+
+      navigate(`/order/${order._id}`)
+    }
   }
 
   const handleCloseModal = () => handleModal(false);
@@ -49,7 +82,7 @@ const ModalDelivery = ({ handleModal }) => {
         <h2 className="mt-4 text-2xl">You will pay <span className="font-semibold">{total.toFixed(2)}</span> after delivery.</h2>
         <form className="mt-6 mb-3">
           <div className="mb-2 flex flex-col">
-            <label for="full_name" className="mb-2">Full Name</label>
+            <label htmlFor="full_name" className="mb-2">Full Name</label>
             <input
               type="text"
               name="fullName"
@@ -61,7 +94,7 @@ const ModalDelivery = ({ handleModal }) => {
             /> 
           </div>
           <div className="mb-2 flex flex-col">
-            <label for="phone_number" className="mb-2">Phone Number</label>
+            <label htmlFor="phone_number" className="mb-2">Phone Number</label>
             <input
               type="tel"
               name="phoneNumber"
@@ -73,24 +106,30 @@ const ModalDelivery = ({ handleModal }) => {
             /> 
           </div>
           <div className="flex flex-col">
-            <label for="main_address" className="mb-2">Address</label>
+            <label htmlFor="main_address" className="mb-2">Address</label>
             <textarea
               id="main_address"
               className="mb-6 py-1 px-3 border border-slate-400 rounded-sm"
               onChange={handleChange}
               name="address"
-            >
-              {address}
-            </textarea>
+              value={address}
+            />
           </div>
           {error.isSet && <p className="mb-4 text-lg text-red-600">{error.message}</p>}
-          <input 
+          <button
             type="submit" 
             className="px-4 py-3 rounded-md shadow-md text-white bg-blue-600
-            transition duration-300 hover:opacity-70 cursor-pointer" 
-            value="Make an order" 
+            transition duration-300 hover:opacity-70 cursor-pointer flex items-center" 
             onClick={handleSubmit}
-          />
+          >
+            {!isLoading ? 
+              'Make an order' 
+            : 
+            <>
+              <BiLoaderAlt className="animate-spin mr-3" />
+              <span>Processing...</span>
+            </>}
+          </button>
         </form>
       </div>
     </>

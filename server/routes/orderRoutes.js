@@ -5,6 +5,6 @@ const handleAuth = require('../middleware/authMiddleware')
 
 router.post('/', addOrder);
 router.get('/', handleAuth, getOrders);
-router.get('/:id', handleAuth, getOrder);
+router.get('/:id', getOrder);
 
 module.exports = router;

@@ -4,6 +4,8 @@ import Footer from './components/Footer';
 import Main from './pages/Main';
 import Cart from './pages/Cart';
 import Product from './pages/Product';
+import Login from './pages/Login';
+import OrderStatus from './pages/OrderStatus';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/pizza/:id" element={<Product />} />
+          <Route path="/admin/login" element={<Login />} />
+          <Route path="/order/:id" element={<OrderStatus />} />
         </Routes>
         <Footer />
       </BrowserRouter>
