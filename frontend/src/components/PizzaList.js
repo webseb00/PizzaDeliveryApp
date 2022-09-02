@@ -20,7 +20,7 @@ const PizzaList = () => {
         <h2 className="heading-font text-orange-500 text-6xl text-center font-semibold">
           Our Pizzas
         </h2>
-        <div className="mt-[3rem] flex flex-wrap justify-center">
+        <div className="mt-[3rem] flex flex-wrap justify-center lg:justify-start">
           {isLoading ? 
             <Spinner /> 
             :

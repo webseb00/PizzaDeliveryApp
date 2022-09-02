@@ -1,7 +1,7 @@
 const cookie = require('cookie');
 
 const loginAdmin = (req, res) => {
-  const login = req.body.login;
+  const login = req.body.name;
   const password = req.body.password;
 
   if((login === process.env.ADMIN_LOGIN) && (password === process.env.ADMIN_PASSWORD)) {
@@ -13,7 +13,7 @@ const loginAdmin = (req, res) => {
 
     res.status(200).json('Login successful!');
   } else {
-    res.status(400).json("Invalid login or password");
+    res.status(400).json({ msg: "Invalid login or password" });
   }
 }
 

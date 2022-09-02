@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const PizzaItem = ({ _id, title, img, price }) => {
 
   return (
-    <div className="basis-10/12 sm:basis-6/12 md:basis-3/12 p-3">
+    <div className="basis-10/12 md:basis-8/12 lg:basis-4/12 xl:basis-3/12 p-2">
       <div className="mx-auto text-center border rounded-md bg-slate-100 p-4 
       w-full min-w-[240px] max-w-[320px] transition duration-300 opacity-80 
       hover:opacity-100 shadow hover:shadow-md border-b-slate-200">

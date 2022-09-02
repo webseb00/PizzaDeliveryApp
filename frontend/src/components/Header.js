@@ -20,13 +20,13 @@ const Header = () => {
         <div className="sm:flex-[1] text-center">
           <Link 
             to="/" 
-            className="text-orange-500 text-5xl heading-font flex items-center"
+            className="text-orange-500 text-4xl lg:text-5xl heading-font flex items-center"
           >
             PizzaDelivery
-            <FaPizzaSlice className="text-4xl ml-4" />
+            <FaPizzaSlice className="text-2xl lg:text-4xl ml-4" />
           </Link>
         </div>
-        <nav className="flex-[3] hidden sm:block">
+        <nav className="flex-[3] hidden md:block">
           <ul className="flex justify-center">
             <li className="mx-4">
               <Link className="hover:text-orange-500 transition duration-300" to="/">Home</Link>
@@ -42,7 +42,7 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        <div className="sm:flex-[1] text-center hidden sm:block">
+        <div className="sm:flex-[1] text-center hidden md:block">
           <Link to="/cart" className="hover:opacity-70">
             <span className="inline-block relative">
               <FaShoppingCart className="text-2xl" />
@@ -54,7 +54,7 @@ const Header = () => {
         <button
           type="button"
           className="border-none outline-none bg-transparent text-3xl text-orange-500 
-          hover:opacity-70 block sm:hidden"
+          hover:opacity-70 block md:hidden"
           onClick={handleMobileMenu}
         >
           {isOpen ? <FaTimes /> : <FaBars />}
@@ -62,7 +62,7 @@ const Header = () => {
       </div>
     </header>
     {/* MOBILE NAVBAR */}
-    <nav className={`block sm:hidden text-white bg-slate-800 transition-all duration-300
+    <nav className={`block md:hidden text-white bg-slate-800 transition-all duration-300
     absolute left-0 ${!isOpen ? 'translate-y-[-100%]' : 'translate-y-0'} right-0 z-10`}>
       <ul className="flex flex-col justify-center items-center">
         <li className="w-full text-center">

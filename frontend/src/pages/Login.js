@@ -1,26 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { login } from '../features/auth/authSlice'
+import { ImSpinner8 } from 'react-icons/im'
 
 const Login = () => {
 
+  const navigate = useNavigate('/')
+  const dispatch = useDispatch()
+  const { isLoading, isSuccess, isError, message, isAuth } = useSelector(state  => state.auth)
+
+  useEffect(() => {
+    if(isAuth) {
+      navigate('/admin')
+    }
+  }, [isError, isAuth])
+
   const [form, setForm] = useState({
-    login: '',
+    name: '',
     password: ''
   })
-  const [error, setError] = useState({ isSet: false, message: '' })
+  const { name, password } = form
 
-  const { login, password } = form
+  const [error, setError] = useState({ isSet: false, msg: '' })
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    if(!login && !password) {
-      setError({ isSet: true, message: 'All fields are required!' })
-      return
-    }
+    if(!login || !password) {
+      setError({ isSet: true, msg: 'All fields are required!' })
+      return;
+    } 
 
-    setError({ isSet: false, message: '' })
+    dispatch(login(form)) 
   }
 
   return (
@@ -30,8 +44,8 @@ const Login = () => {
         <div>
           <input 
             type="text"
-            name="login" 
-            value={login}
+            name="name" 
+            value={name}
             onChange={handleChange}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-md rounded-md py-2 px-4 mb-3" 
             placeholder="Login" 
@@ -49,14 +63,15 @@ const Login = () => {
             required 
           />
         </div>
-        {error.isSet && <p className="mt-3 text-lg text-red-600 font-semibold">{error.message}</p>}
-        <input 
+        {error.isSet && <p className="mt-3 text-lg text-red-600 font-semibold">{error.msg}</p>}
+        <button 
           type="submit"
-          value="Login"
           className="px-8 py-2 rounded-md shadow-md text-white bg-blue-600
             transition duration-300 hover:opacity-70 cursor-pointer mt-3"
           onClick={handleSubmit}
-        />
+        >
+          {isLoading ? <ImSpinner8 className="animate-spin text-2xl" /> : 'Login'}
+        </button>
       </form>
     </div>
   )

@@ -6,6 +6,7 @@ import Cart from './pages/Cart';
 import Product from './pages/Product';
 import Login from './pages/Login';
 import OrderStatus from './pages/OrderStatus';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/pizza/:id" element={<Product />} />
           <Route path="/admin/login" element={<Login />} />
+          <Route path="/admin" element={<Dashboard />} />
           <Route path="/order/:id" element={<OrderStatus />} />
         </Routes>
         <Footer />
