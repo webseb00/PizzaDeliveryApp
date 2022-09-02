@@ -14,9 +14,16 @@ const getProduct = async (id) => {
   return response.data; 
 }
 
+const addProduct = async (product) => {
+  const response = await axios.post(`${API_URL}`, product)
+
+  return response.data;
+}
+
 const productsService = {
   getAllProducts,
-  getProduct
+  getProduct,
+  addProduct
 }
 
 export default productsService
