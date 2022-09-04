@@ -23,7 +23,19 @@ const getPizza = async (req, res) => {
 
 const addPizza = async (req, res) => {
   try {
-    const pizza = await Pizza.create(req.body)
+    const { title, description, price, ingredients, img } = req.body
+
+    if(!title || !description || !price || !img) {
+      res.status(400).json({ msg: 'Please fill all fields correctly!' })
+    }
+
+    const pizza = await Pizza.create({
+      title,
+      description,
+      price,
+      ingredients, 
+      img
+    })
 
     res.status(200).json(pizza);
   } catch(error) {
@@ -42,7 +54,6 @@ const deletePizza = async (req, res) => {
 
     await pizza.remove();
     res.status(200).json({ id: pizza._id })
-
   } catch(error) {
     console.log(error)
   }

@@ -32,7 +32,7 @@ const getOrder = async (req, res) => {
 
  try {
   const order = await Order.findById(orderId);
-
+  
   if(!order) {
     res.status(404).json({ msg: `Order with ID: ${orderId} not found!` })
   }
@@ -43,8 +43,46 @@ const getOrder = async (req, res) => {
  }
 }
 
+const updateOrderStatus = async (req, res) => {
+  const orderId = req.params.id;
+  const status = req.body.status;
+  
+  try {
+   const order = await Order.findById(orderId);
+ 
+   if(!order) {
+     res.status(404).json({ msg: `Order with ID: ${orderId} not found!` })
+   }
+
+   const updatedOrder = await Order.updateOne({ status })
+ 
+   res.status(200).json(updatedOrder);
+  } catch(error) {
+   console.log(error)
+  }
+ }
+
+const deleteOrder = async (req, res) => {
+  const orderId = req.params.id;
+
+  try {
+    const findOrder = await Order.findById(orderId)
+
+    if(!findOrder) {
+      res.status(404).json({ msg: `ORder with ID: ${orderId} not found!` })
+    }
+
+    const order = await findOrder.remove()
+    res.status(200).json(order)
+  } catch(err) {  
+    console.log(err)
+  }
+}
+
 module.exports = {
   getOrders,
   addOrder,
-  getOrder
+  getOrder,
+  updateOrderStatus,
+  deleteOrder
 }

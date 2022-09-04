@@ -18,6 +18,7 @@ const OrderStatus = () => {
       const response = await axios.get(`/api/order/${id}`)
 
       setOrder(response.data)
+      setOrderStatus(response.data.status)
     } catch(err) {
       console.log(err);
     }
@@ -62,7 +63,7 @@ const OrderStatus = () => {
                 <td className="px-2 py-4 text-black font-semibold">{order?._id}</td>
                 <td className="px-2 py-4 text-black font-semibold">{order?.firstName} {order?.lastName}</td>
                 <td className="px-2 py-4 text-black font-semibold">{order?.address}</td>
-                <td className="px-2 py-4 text-black font-semibold">{order?.total}</td>
+                <td className="px-2 py-4 text-black font-semibold">{order?.total.toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
@@ -85,26 +86,14 @@ const OrderStatus = () => {
               <p className="my-2">On the way</p>
               {orderStatus > 2 && <FaCheckCircle  className="text-green-700" />}
             </li>
-            <li className={`flex flex-col justify-center items-center m-3 text-lg opacity-40 
-            ${orderStatus === 3 ? 'animate-pulse opacity-100' : ''} ${orderStatus > 3 && 'opacity-100'}`}>
+            <li className={`flex flex-col justify-center items-center m-3 text-lg opacity-100`}>
               <BsBagCheck className="" />
               <p className="my-2">Delivered!</p>
-              {orderStatus > 3 && <FaCheckCircle  className="text-green-700" />}
+              {orderStatus === 3 && <FaCheckCircle  className="text-green-700" />}
             </li>
           </ul>
         </div>
         <div className="flex-1 bg-slate-600 shadow-md text-white p-[2rem]">
-          <h4 className="uppercase font-semibold text-2xl">cart total</h4>
-          <ul className="list-none my-4">
-            <li>
-              <span className="font-semibold">Subtotal:</span> $
-            </li>
-            <li>
-              <span className="font-semibold">Discount:</span> 0.00$</li>
-            <li>
-              <span className="font-semibold">Total:</span> $
-            </li>
-          </ul> 
           <div className="block bg-orange-500 uppercase font-semibold border-none
           outline-none w-full py-2 text-center">
             {order.method ? 'PayPal' : 'Cash On Delivery'}

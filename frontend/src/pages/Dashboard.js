@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { reset } from '../features/auth/authSlice';
 import { logout } from '../features/auth/authSlice';
 import { AiOutlineAppstoreAdd, AiOutlineProfile } from 'react-icons/ai'
 import { BiCookie } from 'react-icons/bi'
+import { MdLogout } from 'react-icons/md'
 import Cookies from 'universal-cookie';
 
 import AddProduct from '../components/AddProduct';
+import ProductsList from '../components/ProductsList';
+import OrdersList from '../components/OrdersList';
 
 const Dashboard = () => {
 
@@ -18,48 +22,40 @@ const Dashboard = () => {
   const [item, setItem] = useState(1);
 
   useEffect(() => {
-    if(isAuth) {
-      const getCookie = cookie.get('token');
-
-      if(!getCookie === process.env.REACT_APP_TOKEN) {
-        navigate('/admin/login')
-        return;
-      } 
+    const getCookie = cookie.get('token');
+      
+    if(getCookie !== process.env.REACT_APP_TOKEN) {
+      navigate('/admin/login')
     } 
 
-    if(!isAuth) {
-      navigate('/admin/login')
-    }
-
-  }, [isAuth, dispatch])
+  }, [dispatch, navigate, isAuth])
 
   const handleChange = e => setItem(Number(e.currentTarget.id))
 
   const displayItems = item => {
     switch(item) {
       case 1: 
-        return (
-          <h2>orders list</h2>
-        )
+        return <OrdersList />
       case 2:
-        return (
-          <h2>products list</h2>
-        )
+        return <ProductsList />
       case 3: 
         return <AddProduct  />
     }
   }
 
-  const handleLogout = () => dispatch(logout())
+  const handleLogout = () => {
+    navigate('/admin')
+    dispatch(logout())
+  }
   
   return (
-    <div className="container mx-auto px-2 pt-[2rem] pb-[4rem]">
+    <div className="container mx-auto px-2 pt-[2rem] pb-[4rem] relative">
       <header className="flex items-center justify-center">
         <button
-          className="flex flex-col justify-center items-center 
+          className={`flex flex-col justify-center items-center 
           rounded-sm shadow-sm w-[10rem] h-[10rem] border border-gray-300
           transition duration-300 hover:border-orange-500 hover:text-orange-500
-          hover:shadow-md"
+          hover:shadow-md ${item === 1 ? 'border-orange-500 text-orange-500' : ''}`}
           onClick={handleChange}
           id="1"
         >
@@ -69,10 +65,10 @@ const Dashboard = () => {
           <span>Orders</span>
         </button>
         <button
-          className="flex flex-col justify-center items-center 
+          className={`flex flex-col justify-center items-center 
           rounded-sm shadow-sm w-[10rem] h-[10rem] border border-gray-300
-          mx-4 transition duration-300 hover:border-orange-500 hover:text-orange-500
-          hover:shadow-md"
+          transition duration-300 hover:border-orange-500 hover:text-orange-500
+          hover:shadow-md mx-4 ${item === 2 ? 'border-orange-500 text-orange-500' : ''}`}
           onClick={handleChange}
           id="2"
         >
@@ -82,10 +78,10 @@ const Dashboard = () => {
           <span>Products</span>
         </button>
         <button
-          className="flex flex-col justify-center items-center 
+          className={`flex flex-col justify-center items-center 
           rounded-sm shadow-sm w-[10rem] h-[10rem] border border-gray-300
           transition duration-300 hover:border-orange-500 hover:text-orange-500
-          hover:shadow-md"
+          hover:shadow-md ${item === 3 ? 'border-orange-500 text-orange-500' : ''}`}
           onClick={handleChange}
           id="3"
         >
@@ -99,6 +95,15 @@ const Dashboard = () => {
       <div className="mt-6 max-w-[700px] mx-auto">
         {displayItems(item)}
       </div>
+      <button
+        type="button"
+        className="bg-slate-800 py-3 px-5 text-white flex items-center
+        rounded-md shadow-sm border border-slate-800 fixed z-10 bottom-[20px] right-[20px]"
+        onClick={handleLogout}
+      >
+        Logout
+        <MdLogout className="ml-3 text-2xl" />
+      </button>
     </div>
   )
 }

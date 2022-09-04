@@ -3,18 +3,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../features/auth/authSlice'
 import { ImSpinner8 } from 'react-icons/im'
+import Cookies from 'universal-cookie';
 
 const Login = () => {
 
   const navigate = useNavigate('/')
   const dispatch = useDispatch()
   const { isLoading, isSuccess, isError, message, isAuth } = useSelector(state  => state.auth)
+  const cookie = new Cookies();
+  
+  const handleAuth = () => {
+    const getCookie = cookie.get('token');
+      
+    if(getCookie === process.env.REACT_APP_TOKEN) {
+      navigate('/admin')
+    } 
+  }
 
   useEffect(() => {
-    if(isAuth) {
-      navigate('/admin')
-    }
-  }, [isError, isAuth])
+    handleAuth();
+  }, [dispatch, isAuth])
 
   const [form, setForm] = useState({
     name: '',

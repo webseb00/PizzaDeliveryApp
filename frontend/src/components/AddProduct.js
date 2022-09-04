@@ -1,6 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../features/products/productsSlice';
+import axios from 'axios';
 
 const AddProduct = () => {
+
+  const API_URL = `https://api.cloudinary.com/v1_1/dlgcq1hg1/image/upload`
+
+  const fileRef = useRef(null);
+  const dispatch = useDispatch()
 
   const [form, setForm] = useState({
     title: '',
@@ -9,15 +17,34 @@ const AddProduct = () => {
     ingredients: '',
     img: ''
   })
-
+  
   const { title, description, price, ingredients, img } = form;
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = e => {
+  const handleImage = async () => {
+    const data = new FormData();
+    const image = fileRef.current.files[0]
+
+    data.append('file', image);
+    data.append('upload_preset', 'pizzaApp');
+    data.append('cloud_name', 'dlgcq1hg1');
+
+    if(!image) { return; }
+
+    try {
+      const { data: { url } } = await axios.post(API_URL, data);
+      setForm({ ...form, img: url })
+    } catch(err) {
+      console.log(err.response.data.error.message)
+    }
+
+  }
+
+  const handleSubmit = async e => {
     e.preventDefault();
 
-    if(!title || !description || !price || !img) {
+    if(!title || !description || !price || !fileRef) {
       return;
     }
 
@@ -28,6 +55,8 @@ const AddProduct = () => {
       ingredients: ingredients.split(',').map(el => el.trim()),
       img
     }
+
+    dispatch(addProduct(obj))
   }
 
   return (
@@ -78,8 +107,9 @@ const AddProduct = () => {
         <input
           type="file"
           name="img"
+          onChange={handleImage}
           accept=".jpg, .jpeg, .png"
-          onChange={handleChange}
+          ref={fileRef}
           className="py-1 px-3 border border-slate-400 rounded-md"
           required
         />
