@@ -14,3 +14,5 @@ App allows to order favourite pizza with cash on delivery or using PayPal servic
 ![screenshot](screens/screen2.jpeg)
 ![screenshot](screens/screen3.jpeg)
 ![screenshot](screens/screen4.jpeg)
+![screenshot](screens/screen5.jpeg)
+![screenshot](screens/screen6.jpeg)

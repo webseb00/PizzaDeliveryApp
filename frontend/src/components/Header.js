@@ -9,9 +9,7 @@ const Header = () => {
 
   const { items } = useSelector(state => state.cart);
 
-  const handleMobileMenu = () => {
-    setIsOpen((prev) => !prev);
-  }
+  const handleMobileMenu = () => setIsOpen((prev) => !prev);
 
   return (
     <>
@@ -82,7 +80,7 @@ const Header = () => {
             <span className="inline-block relative">
               <FaShoppingCart className="text-2xl" />
               <div className="absolute top-[-10px] right-[-10px] bg-white text-slate-800 rounded-full w-[20px] h-[20px] 
-              font-semibold text-lg align-middle flex items-center justify-center">0</div>
+              font-semibold text-lg align-middle flex items-center justify-center">{items}</div>
             </span>
           </Link>
         </li>

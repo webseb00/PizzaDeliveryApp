@@ -43,6 +43,23 @@ const addPizza = async (req, res) => {
   }
 }
 
+const updatePizza = async (req, res) => {
+  try {
+    const id = req.body.id;
+    const pizza = await Pizza.findById(id)
+
+    if(!pizza) {
+      res.status(404).json({ msg: 'Pizza not found!' });
+    }
+
+    const response = await Pizza.findByIdAndUpdate(id, req.body, { new: true })
+
+    res.status(200).json(response)
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 const deletePizza = async (req, res) => {
   try {
     const id = req.params.id;
@@ -63,5 +80,6 @@ module.exports = {
   getAllPizza,
   getPizza,
   addPizza,
+  updatePizza,
   deletePizza
 }

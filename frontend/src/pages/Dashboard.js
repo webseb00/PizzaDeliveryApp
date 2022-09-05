@@ -54,6 +54,7 @@ const Dashboard = () => {
   
   return (
     <div className="container mx-auto px-2 pt-[2rem] pb-[4rem] relative">
+      <h3 className="mb-6 text-center text-2xl">Admin dashboard</h3>
       <header className="flex items-center justify-center">
         <button
           className={`flex flex-col justify-center items-center 

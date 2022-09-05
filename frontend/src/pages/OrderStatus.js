@@ -86,7 +86,8 @@ const OrderStatus = () => {
               <p className="my-2">On the way</p>
               {orderStatus > 2 && <FaCheckCircle  className="text-green-700" />}
             </li>
-            <li className={`flex flex-col justify-center items-center m-3 text-lg opacity-100`}>
+            <li className={`flex flex-col justify-center items-center m-3 text-lg opacity-40
+            ${orderStatus === 3 ? 'opacity-100' : ''}`}>
               <BsBagCheck className="" />
               <p className="my-2">Delivered!</p>
               {orderStatus === 3 && <FaCheckCircle  className="text-green-700" />}

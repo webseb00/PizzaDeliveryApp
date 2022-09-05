@@ -49,12 +49,12 @@ const updateOrderStatus = async (req, res) => {
   
   try {
    const order = await Order.findById(orderId);
- 
+   
    if(!order) {
      res.status(404).json({ msg: `Order with ID: ${orderId} not found!` })
    }
 
-   const updatedOrder = await Order.updateOne({ status })
+   const updatedOrder = await order.updateOne({ status })
  
    res.status(200).json(updatedOrder);
   } catch(error) {

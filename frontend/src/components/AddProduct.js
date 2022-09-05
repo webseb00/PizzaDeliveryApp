@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { addProduct } from '../features/products/productsSlice';
-import axios from 'axios';
+import { handleImage } from '../utils';
 
 const AddProduct = () => {
 
@@ -20,28 +20,17 @@ const AddProduct = () => {
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleImage = async () => {
-    const data = new FormData();
+  const handleAddImage = async () => {
     const image = fileRef.current.files[0]
+    const { data: { url } } = await handleImage(image)
 
-    data.append('file', image);
-    data.append('upload_preset', 'pizzaApp');
-    data.append('cloud_name', 'dlgcq1hg1');
-
-    if(!image) { return; }
-
-    try {
-      const { data: { url } } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data);
-      setForm({ ...form, img: url })
-    } catch(err) {
-      console.log(err.response.data.error.message)
-    }
+    setForm({ ...form, img: url })
   }
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    if(!title || !description || !price || !fileRef) {
+    if(!title || !description || !price || !img) {
       return;
     }
 
@@ -54,6 +43,14 @@ const AddProduct = () => {
     }
 
     dispatch(addProduct(obj))
+
+    setForm({
+      title: '',
+      description: '',
+      price: '',
+      ingredients: '',
+      img: ''
+    })
   }
 
   return (
@@ -101,10 +98,11 @@ const AddProduct = () => {
         /> 
       </div>
       <div className="mb-2 flex flex-col">
+        <label className="mb-2 font-semibold">Add pizza image</label>
         <input
           type="file"
           name="img"
-          onChange={handleImage}
+          onChange={handleAddImage}
           accept=".jpg, .jpeg, .png"
           ref={fileRef}
           className="py-1 px-3 border border-slate-400 rounded-md"
