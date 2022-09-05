@@ -20,6 +20,12 @@ const addProduct = async (product) => {
   return response.data;
 }
 
+const updateProduct = async (data) => {
+  const response = await axios.put(`${API_URL}`, data)
+  
+  return response.data;
+}
+
 const deleteProduct = async (productID) => {
   const response = await axios.delete(`${API_URL}/${productID}`)
 
@@ -30,6 +36,7 @@ const productsService = {
   getAllProducts,
   getProduct,
   addProduct,
+  updateProduct,
   deleteProduct
 }
 

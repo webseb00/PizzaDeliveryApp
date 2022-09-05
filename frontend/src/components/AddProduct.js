@@ -5,8 +5,6 @@ import axios from 'axios';
 
 const AddProduct = () => {
 
-  const API_URL = `https://api.cloudinary.com/v1_1/dlgcq1hg1/image/upload`
-
   const fileRef = useRef(null);
   const dispatch = useDispatch()
 
@@ -33,12 +31,11 @@ const AddProduct = () => {
     if(!image) { return; }
 
     try {
-      const { data: { url } } = await axios.post(API_URL, data);
+      const { data: { url } } = await axios.post(process.env.REACT_APP_CLOUDINARY_URL, data);
       setForm({ ...form, img: url })
     } catch(err) {
       console.log(err.response.data.error.message)
     }
-
   }
 
   const handleSubmit = async e => {

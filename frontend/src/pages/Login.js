@@ -9,7 +9,7 @@ const Login = () => {
 
   const navigate = useNavigate('/')
   const dispatch = useDispatch()
-  const { isLoading, isSuccess, isError, message, isAuth } = useSelector(state  => state.auth)
+  const { isLoading, isAuth } = useSelector(state  => state.auth)
   const cookie = new Cookies();
   
   const handleAuth = () => {

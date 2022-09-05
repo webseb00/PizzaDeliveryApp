@@ -22,10 +22,14 @@ const Dashboard = () => {
   const [item, setItem] = useState(1);
 
   useEffect(() => {
+    if(!isAuth) {
+      navigate('/admin/login')
+    }
     const getCookie = cookie.get('token');
       
     if(getCookie !== process.env.REACT_APP_TOKEN) {
       navigate('/admin/login')
+      dispatch(reset())
     } 
 
   }, [dispatch, navigate, isAuth])
@@ -98,7 +102,8 @@ const Dashboard = () => {
       <button
         type="button"
         className="bg-slate-800 py-3 px-5 text-white flex items-center
-        rounded-md shadow-sm border border-slate-800 fixed z-10 bottom-[20px] right-[20px]"
+        rounded-md shadow-md border-2 border-slate-800 fixed z-10 bottom-[20px] right-[20px]
+        transition duration hover:text-slate-800 hover:bg-white"
         onClick={handleLogout}
       >
         Logout
