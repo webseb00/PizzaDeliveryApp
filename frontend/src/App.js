@@ -13,14 +13,18 @@ function App() {
     <>
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/pizza/:id" element={<Product />} />
-          <Route path="/admin/login" element={<Login />} />
-          <Route path="/admin" element={<Dashboard />} />
-          <Route path="/order/:id" element={<OrderStatus />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Main />} />
+          </Routes>
+          <div className="pt-[97px]">
+            <Routes>
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/pizza/:id" element={<Product />} />
+              <Route path="/admin/login" element={<Login />} />
+              <Route path="/admin" element={<Dashboard />} />
+              <Route path="/order/:id" element={<OrderStatus />} />
+            </Routes>
+          </div>
         <Footer />
       </BrowserRouter>
     </>
