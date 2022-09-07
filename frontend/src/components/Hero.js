@@ -5,7 +5,7 @@ import { FaChevronCircleDown } from 'react-icons/fa'
 
 const Hero = () => {
   return (
-    <div className="hero-bg h-auto relative overflow-hidden pt-[97px]">
+    <div className="hero-bg h-auto relative overflow-hidden pt-[20px]">
       <div className="container mx-auto px-6 py-[6rem] flex flex-col md:flex-row items-center justify-around">
         <div className="text-white max-w-[480px] md:mr-6 flex-1 text-center md:text-left">
           <h1 className="font-bold text-6xl">Only Fresh <br />Ingredients</h1>

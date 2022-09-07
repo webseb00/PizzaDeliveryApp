@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { reset } from '../features/auth/authSlice';
-import { logout } from '../features/auth/authSlice';
+import { reset, logout } from '../features/auth/authSlice';
 import { AiOutlineAppstoreAdd, AiOutlineProfile } from 'react-icons/ai'
 import { BiCookie } from 'react-icons/bi'
 import { MdLogout } from 'react-icons/md'

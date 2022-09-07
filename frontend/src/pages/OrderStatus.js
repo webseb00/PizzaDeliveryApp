@@ -12,7 +12,8 @@ const OrderStatus = () => {
   const [order, setOrder] = useState(null);
   const [orderStatus, setOrderStatus] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
-   
+  const [error, setError] = useState({ isSet: false, msg: '' })
+
   const fetchOrderData = async () => {
     try {
       const response = await axios.get(`/api/order/${id}`)
@@ -20,7 +21,8 @@ const OrderStatus = () => {
       setOrder(response.data)
       setOrderStatus(response.data.status)
     } catch(err) {
-      console.log(err);
+      const errorMsg = err.response.data.msg || `An error occurred with status code: ${err.response.status}`
+      setError({ isSet: true, msg: errorMsg })
     }
 
     setIsLoading(false);
@@ -41,7 +43,9 @@ const OrderStatus = () => {
 
   if(!order && !order?._id) return (
     <div className="h-[80vh] flex justify-center items-center">
-      <h2 className="text-center text-2xl text-slate-700 my-8">Sorry, your order ID was not found.</h2>
+      <h2 className="text-center text-2xl text-slate-700 my-8">
+        {error.isSet ? error.msg : 'Sorry, your order ID was not found.'}
+      </h2>
     </div>
   )
 
@@ -72,7 +76,9 @@ const OrderStatus = () => {
             ${orderStatus === 0 ? 'animate-pulse' : ''}`}>
               <FaCashRegister className="" />
               <p className="my-2">Payment</p>
-              {order.method === 1 ? <FaCheckCircle  className="text-green-700" /> : <FaTimesCircle className="text-red-700" />}
+              {order.method === 1 && orderStatus === 3 && <FaCheckCircle  className="text-green-700" />}
+              {order.method === 1 && <FaTimesCircle className="text-red-700" />}
+              {order.method === 0 && <FaCheckCircle  className="text-green-700" />}
             </li>
             <li className={`flex flex-col justify-center items-center m-3 text-lg opacity-40 
             ${orderStatus === 1 ? 'animate-pulse opacity-100' : ''} ${orderStatus > 1 && 'opacity-100'}`}>

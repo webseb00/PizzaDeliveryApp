@@ -80,6 +80,7 @@ const Login = () => {
         >
           {isLoading ? <ImSpinner8 className="animate-spin text-2xl" /> : 'Login'}
         </button>
+        <p className="mt-2 text-gray-400">(Please, leave this page if you are not admin)</p>
       </form>
     </div>
   )

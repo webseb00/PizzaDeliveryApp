@@ -13,7 +13,7 @@ const Product = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate('/');
 
-  const { product, isLoading } = useSelector(state => state.products)
+  const { product, isLoading, isError, message } = useSelector(state => state.products)
 
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState('');
@@ -65,6 +65,14 @@ const Product = () => {
       setPrice(product.price[0].toFixed(2))
     }
   }, [product])
+
+  if(isError) return (
+    <div className="h-[80vh] flex justify-center items-center">
+      <h2 className="text-center text-2xl text-slate-700 my-8">
+        {message}
+      </h2>
+    </div>
+  )
 
   if(isLoading) return (
     <div className="h-[80vh] flex justify-center items-center">

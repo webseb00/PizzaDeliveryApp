@@ -39,7 +39,7 @@ const getOrder = async (req, res) => {
 
   res.status(200).json(order);
  } catch(error) {
-  console.log(error)
+  res.status(400).json({ msg: 'Your order ID is invalid' })
  }
 }
 

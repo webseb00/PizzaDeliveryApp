@@ -3,6 +3,7 @@ import { TbPizzaOff } from 'react-icons/tb'
 import { useSelector } from 'react-redux'
 import ModalDelivery from '../components/ModalDelivery'
 import CartItem from '../components/CartItem'
+import PayPalComponent from '../components/PayPalComponent'
 
 const Cart = () => {
 
@@ -61,20 +62,20 @@ const Cart = () => {
               <button 
                 type="button"
                 className="block bg-slate-200 text-green-600 uppercase font-semibold border-none
-                outline-none w-full py-2 transition duration-300 hover:opacity-70 mb-2"
+                outline-none w-full py-2 transition duration-300 hover:opacity-70"
                 onClick={() => setModalDelivery(true)}
               >
                 Cash On Delivery 
               </button>  
-              <button 
+              {/* <PayPalComponent /> */}
+              {/* <button 
                 type="button"
                 className="block bg-yellow-400 text-white uppercase font-semibold border-none
                 outline-none w-full py-2 transition duration-300 hover:opacity-70"
               >
                 PayPal 
-              </button>  
+              </button>   */}
             </>
-            
           }
         </div>
       </div>

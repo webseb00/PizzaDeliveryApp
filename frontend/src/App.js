@@ -7,17 +7,17 @@ import Product from './pages/Product';
 import Login from './pages/Login';
 import OrderStatus from './pages/OrderStatus';
 import Dashboard from './pages/Dashboard';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Header />
-          <Routes>
-            <Route path="/" element={<Main />} />
-          </Routes>
-          <div className="pt-[97px]">
+          <div className="pt-[60px]">
             <Routes>
+              <Route path="/" element={<Main />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/pizza/:id" element={<Product />} />
               <Route path="/admin/login" element={<Login />} />

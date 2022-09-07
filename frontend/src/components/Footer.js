@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { FaFacebookF, FaTwitter, FaInstagram, FaPinterestP } from 'react-icons/fa'
-import { BsFillArrowRightCircleFill } from 'react-icons/bs'
+import { BsFillArrowRightCircleFill, BsFillPersonFill } from 'react-icons/bs'
 
 const Footer = () => {
   return (
@@ -58,7 +59,18 @@ const Footer = () => {
       <div className="bg-slate-800">
         <div className="container mx-auto px-6 text-white flex flex-col items-center md:flex-row 
         justify-center md:justify-between py-4">
-          <p className="mb-4 md:mb-0">Copyright &copy; 2022. All Rights Reserved.</p>
+          <div className="flex flex-col items-center md:flex-row">
+            <Link
+              to="/admin/login"
+              className="py-2 px-4 text-white bg-orange-500
+              rounded-md transition duration-300 hover:opacity-70
+              flex items-center mb-2 md:mb-0 md:mr-4 "
+            >
+              Login
+              <BsFillPersonFill className="text-xl ml-3" />
+            </Link>
+            <p className="mb-4 md:mb-0">Copyright &copy; 2022. All Rights Reserved.</p>
+          </div>
           <ul className="list-none flex">
             <li>
               <a href="/" className="bg-black p-3 block mx-1

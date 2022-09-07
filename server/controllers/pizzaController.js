@@ -15,9 +15,13 @@ const getPizza = async (req, res) => {
     const id = req.params.id;
     const pizza = await Pizza.findById(id);
 
+    if(!pizza) {
+      res.status(404).json({ msg: `Product with ID: ${id} not found!` })
+    }
+
     res.status(200).json(pizza);
   } catch(error) {
-    console.log(error)
+    res.status(400).json({ msg: `Invalid product ID` })
   }
 }
 

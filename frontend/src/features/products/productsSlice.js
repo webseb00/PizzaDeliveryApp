@@ -22,7 +22,7 @@ export const getProduct = createAsyncThunk('products/getProduct', async (id, { r
   try {
     return await productsService.getProduct(id);
   } catch(err) {
-    return rejectWithValue(err.message)
+    return rejectWithValue(err.response.data.msg || err.message)
   }
 })
 
