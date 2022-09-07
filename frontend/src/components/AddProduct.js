@@ -2,12 +2,14 @@ import React, { useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { addProduct } from '../features/products/productsSlice';
 import { handleImage } from '../utils';
+import { ImSpinner8 } from 'react-icons/im'
 
 const AddProduct = () => {
 
   const fileRef = useRef(null);
   const dispatch = useDispatch()
 
+  const [imgLoading, setImgLoading] = useState(false)
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -21,10 +23,13 @@ const AddProduct = () => {
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
   const handleAddImage = async () => {
+    setImgLoading(true);
+
     const image = fileRef.current.files[0]
     const { data: { url } } = await handleImage(image)
 
     setForm({ ...form, img: url })
+    setImgLoading(false);
   }
 
   const handleSubmit = async e => {
@@ -38,7 +43,7 @@ const AddProduct = () => {
       title: title.trim(),
       description: description.trim(),
       price: price.split(',').map(el => Number(el)),
-      ingredients: ingredients.split(',').map(el => el.trim()),
+      ingredients: ingredients.length && ingredients.split(',').map(el => el.trim()),
       img
     }
 
@@ -108,6 +113,11 @@ const AddProduct = () => {
           className="py-1 px-3 border border-slate-400 rounded-md"
           required
         />
+        <div className="w-[80px] h-[80px] shadow-md rounded-md
+        mt-2 flex justify-center items-center">
+          {imgLoading && <ImSpinner8 className="animate-spin text-center text-2xl" />}
+          {img && <img src={img} alt="pizza" className="w-full" />}
+        </div>
       </div>
       <div>
         <button
