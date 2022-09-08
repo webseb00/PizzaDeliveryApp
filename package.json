@@ -7,7 +7,7 @@
     "watch:server": "nodemon server/index.js",
     "watch:client": "yarn --cwd frontend start",
     "dev": "concurrently yarn:watch*",
-    "heroku-postbuild": "yarn --cwd frontend add && yarn --cwd frontend build"
+    "heroku-postbuild": "yarn --cwd frontend install && yarn --cwd frontend build"
   },
   "devDependencies": {
     "concurrently": "^7.3.0",
