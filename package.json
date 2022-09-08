@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "node server/index.js",
     "watch:server": "nodemon server/index.js",
     "watch:client": "yarn --cwd frontend start",
     "dev": "concurrently yarn:watch*",
