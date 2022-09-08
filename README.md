@@ -7,6 +7,7 @@ App allows to order favourite pizza with cash on delivery or using PayPal servic
 ## !App is still under development!
 
 ## LiveLink: 
+[Link](https://pizzadeliveryappv1.herokuapp.com/)
 
 ## Screenshots
 
