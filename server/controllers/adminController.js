@@ -7,6 +7,7 @@ const loginAdmin = (req, res) => {
   if((login === process.env.ADMIN_LOGIN) && (password === process.env.ADMIN_PASSWORD)) {
 
     res.setHeader('Set-Cookie', cookie.serialize('token', process.env.TOKEN, {
+      sameSite: false,
       maxAge: 60*60,
       path: '/'
     }))

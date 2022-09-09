@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { reset, logout } from '../features/auth/authSlice';
@@ -7,9 +7,9 @@ import { BiCookie } from 'react-icons/bi'
 import { MdLogout } from 'react-icons/md'
 import Cookies from 'universal-cookie';
 
-import AddProduct from '../components/AddProduct';
-import ProductsList from '../components/ProductsList';
-import OrdersList from '../components/OrdersList';
+const AddProduct = lazy(() => import(/* webpackChunkName: "AddProductBundle" */ '../components/AddProduct'))
+const ProductsList = lazy(() => import(/* webpackChunkName: "ProductListBundle" */ '../components/ProductsList'))
+const OrdersList = lazy(() => import(/* webpackChunkName: "OrdersListBundle" */ '../components/OrdersList'))
 
 const Dashboard = () => {
 
@@ -97,7 +97,9 @@ const Dashboard = () => {
       </header>
       <hr className="mt-8" />
       <div className="mt-6 max-w-[700px] mx-auto">
-        {displayItems(item)}
+        <Suspense fallback={<p>Loading...</p>}>
+          {displayItems(item)}
+        </Suspense>
       </div>
       <button
         type="button"

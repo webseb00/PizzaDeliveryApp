@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { reset } from '../features/cart/cartSlice'
 import { FaTimes } from 'react-icons/fa'
 import { BiLoaderAlt } from 'react-icons/bi'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const ModalDelivery = ({ handleModal }) => {
 
+  const dispatch = useDispatch()
   const navigate = useNavigate('/')
   const { total } = useSelector((state) => state.cart)
 
@@ -59,6 +62,9 @@ const ModalDelivery = ({ handleModal }) => {
       setError({ isSet: false, message: '' });
       handleCloseModal();
 
+      toast.success('Your order is being processed!')
+
+      dispatch(reset())
       navigate(`/order/${order._id}`)
     }
   }

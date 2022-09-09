@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Spinner from './Spinner'
+import { toast } from 'react-toastify'
 
 const OrdersList = () => {
 
@@ -28,6 +29,9 @@ const OrdersList = () => {
   const handleDelete = async (orderID) => {
     try {
       await axios.delete(`api/order/${orderID}`)
+
+      toast.info('Order deleted!');
+
       fetchOrders();
     } catch(err) {
       console.log(err)

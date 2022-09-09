@@ -5,6 +5,8 @@ import { getAllProducts, deleteProduct } from '../features/products/productsSlic
 import Spinner from './Spinner'
 import EditProduct from './EditProduct'
 
+import { toast } from 'react-toastify';
+
 const ProductsList = () => {
 
   const { products, isLoading } = useSelector((state) => state.products)
@@ -24,6 +26,8 @@ const ProductsList = () => {
 
   const handleDelete = id => {
     dispatch(deleteProduct(id))
+
+    toast.info('Product deleted!')
   }
 
   if(isLoading) return <Spinner />

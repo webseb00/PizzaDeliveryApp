@@ -4,6 +4,8 @@ import { addProduct } from '../features/products/productsSlice';
 import { handleImage } from '../utils';
 import { ImSpinner8 } from 'react-icons/im'
 
+import { toast } from 'react-toastify';
+
 const AddProduct = () => {
 
   const fileRef = useRef(null);
@@ -48,6 +50,8 @@ const AddProduct = () => {
     }
 
     dispatch(addProduct(obj))
+
+    toast.success('Product added!');
 
     setForm({
       title: '',
